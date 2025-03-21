@@ -1,147 +1,125 @@
-# EU State Aid Data Pipeline with Data Validation and Standardization (Moody's Project)
+# Automated Data Pipeline for Grant Data Integration
 
 **Description:**
 
-This project, developed at Moody's, automates the integration of EU State Aid grant data into the Orbis database, enhancing analysis of grant recipients. It includes automated CSV export from the EU State Aid website, robust data validation, profiling, and standardized data ingestion, significantly improving data quality and team efficiency.
+This project involves the development of an automated data pipeline to integrate grant data from a public source into a data platform. The pipeline incorporates data extraction, transformation, validation, and loading processes to ensure data quality and enhance the information available within the platform. This project showcases the implementation of robust data engineering practices to improve data accuracy and team efficiency.
 
-## Project Overview
+**Project Overview:**
 
-This project streamlines the extraction, processing, and integration of EU State Aid data to enhance Moody's analysis and reporting. The key components are:
+This project streamlines the extraction, processing, and integration of grant data. The key components are:
 
-1.  **Automated CSV Export (Selenium):**
-    * Automates CSV export from the EU State Aid website using Selenium.
-    * Handles form submissions and website changes for reliable data extraction.
-2.  **SharePoint CSV Storage & Transfer:**
-    * Stores exported CSV files in a SharePoint folder.
-    * Transfers files to AWS S3 using `office365-rest-python-client` and boto3.
-3.  **AWS S3 Storage:**
-    * Provides scalable storage for raw CSV files.
-4.  **AWS Databricks Processing (PySpark):**
-    * Processes CSV data in AWS Databricks with PySpark.
-    * Performs data cleaning, transformation, and fuzzy matching.
-    * Enriches data with Orbis database information.
-5.  **Orbis Database Integration:**
-    * Loads processed data into the Orbis database via SQL or API.
-    * Maintains data integrity and updates grant information.
-6.  **Data Validation (Great Expectations):**
-    * Implements robust data validation to identify and rectify discrepancies.
+1.  **Automated Data Extraction:**
+    * Automates the extraction of data from a public website using web automation techniques.
+    * Handles form submissions and website changes to ensure reliable data extraction.
+2.  **Data Storage & Transfer:**
+    * Stores the extracted data in a temporary storage location.
+    * Automates the transfer of data to a cloud-based storage system.
+3.  **Cloud-Based Storage:**
+    * Utilizes cloud storage for scalable and reliable storage of raw data.
+4.  **Cloud-Based Data Processing:**
+    * Processes data in a cloud-based distributed computing environment.
+    * Performs data cleaning, transformation, and matching.
+    * Enriches data with information from an existing data source.
+5.  **Database Integration:**
+    * Loads the processed data into a database.
+    * Maintains data integrity and updates information.
+6.  **Data Validation:**
+    * Implements data validation to identify and rectify discrepancies.
     * Defines expectations, runs checks, and generates quality reports.
-7.  **Data Profiling (Pandas Profiling):**
+7.  **Data Profiling:**
     * Profiles data to identify issues like missing values and inconsistencies.
 8.  **Standardized Data Ingestion Template:**
     * Streamlines ingestion processes for consistency and efficiency.
 9.  **Data Lineage Tracking:**
     * Tracks data transformations for integrity and traceability.
-10. **Data Visualization (Power BI or Orbis Platform):**
-    * Visualizes integrated data for Moody's analysis.
+10. **Data Visualization:**
+    * Visualizes integrated data for analysis.
 
 ## Architecture
 
-EU State Aid Website (Selenium) --> Email (CSV Attachment) --> Power Automate --> SharePoint Folder --> AWS Lambda/Python Script --> AWS S3 --> AWS Databricks (PySpark) --> Orbis Database --> Power BI/Orbis Platform
+Public Website (Web Automation) --> Temporary Storage --> Cloud Storage --> Cloud-Based Processing --> Database --> Data Visualization
 
 ## Technologies
 
 * **Automation & Web Scraping:**
-    * Selenium (website automation)
-    * Power Automate (email attachment handling)
+    * Web Automation Library (e.g., Selenium)
+    * Automation Tool (e.g., Power Automate or similar)
 
 * **Python:**
-    * `office365-rest-python-client` (SharePoint API)
-    * boto3 (AWS S3)
-    * fuzzywuzzy (matching)
-    * Beautiful Soup (web scraping)
-    * Requests (HTTP requests)
-    * Pandas (data manipulation)
+    * Libraries for web scraping (e.g., Beautiful Soup, Requests)
+    * Libraries for cloud storage interaction (e.g., boto3 for AWS)
+    * Libraries for data manipulation (e.g., Pandas)
+    * Libraries for fuzzy matching
 
-* **AWS:**
-    * AWS Lambda (serverless compute) or EC2 (virtual server)
-    * AWS S3 (object storage)
-    * AWS Databricks (PySpark processing)
+* **Cloud Computing:**
+    * Cloud Platform (e.g., AWS, Azure, GCP)
+    * Cloud Storage Service (e.g., AWS S3, Azure Blob Storage, Google Cloud Storage)
+    * Cloud-Based Distributed Computing (e.g., AWS Databricks, Azure Synapse, Google Cloud Dataproc)
 
-* **Databricks:**
-    * PySpark (distributed data processing)
+* **Distributed Processing:**
+    * Distributed Processing Framework (e.g., PySpark)
 
 * **Database:**
-    * Orbis Database (SQL/API)
+    * Database System (e.g., PostgreSQL, MySQL, Cloud-based databases)
 
 * **Visualization:**
-    * Power BI
-    * Orbis Platform
+    * Data Visualization Tool (e.g., Power BI, Tableau, Looker)
 
 * **Orchestration:**
-    * Apache Airflow
+    * Workflow Orchestration Tool (e.g., Apache Airflow, Prefect, Dagster)
 
 * **Validation:**
-    * Great Expectations
+    * Data Validation Library (e.g., Great Expectations)
 
 * **Profiling:**
-    * Pandas Profiling
+    * Data Profiling Library (e.g., Pandas Profiling)
 
 * **Containerization:**
-    * Docker
+    * Containerization Platform (e.g., Docker)
 
 * **Version Control:**
     * Git
 
 ## Setup and Installation
 
-1.  **AWS Setup:**
-    * Create AWS account, S3 bucket, and Databricks workspace.
-    * Configure IAM roles for access.
-
-2.  **SharePoint Setup:**
-    * Ensure access and credentials.
-
-3.  **Orbis Setup:**
-    * Ensure database/API access.
-
+1.  **Cloud Platform Setup:**
+    * Set up a cloud platform account and configure necessary services.
+    * Configure IAM roles/permissions for access.
+2.  **Data Storage Setup:**
+    * Configure storage services for temporary and cloud-based storage.
+3.  **Database Setup:**
+    * Ensure access to the database system.
 4.  **Python Dependencies:**
-
-    ```bash
-    pip install selenium office365-rest-python-client boto3 fuzzywuzzy great_expectations pandas_profiling
-    ```
-
-5.  **Databricks Setup:**
-    * Mount S3 and create PySpark notebook.
-
-6.  **Lambda/EC2 Setup:**
-    * Configure for file transfer to S3.
-
-7.  **Selenium Setup:**
-    * Install webdriver and Selenium.
-
-8.  **Airflow Setup:**
-    * Install and configure Airflow.
-
-9.  **Docker Setup:**
-    * Install and configure Docker.
-
-10. **Power Automate Setup:**
-    * Create a Power Automate flow to monitor the email inbox for CSV attachments.
-    * Configure the flow to save attachments to the specified SharePoint folder.
-    * Ensure the Power Automate flow has the necessary permissions to access the email inbox and SharePoint folder.
+    * Install necessary Python libraries using `pip install` (list specific libraries used).
+5.  **Distributed Computing Setup:**
+    * Set up and configure the distributed computing environment.
+6.  **Web Automation Setup:**
+    * Install and configure the web automation library and any related tools.
+7.  **Workflow Orchestration Setup:**
+    * Install and configure the workflow orchestration tool.
+8.  **Containerization Setup:**
+    * Install and configure the containerization platform.
 
 ## Usage
 
-1.  Configure credentials for AWS, SharePoint, Orbis, and email.
-2.  Run the Selenium script to export CSV files from the EU State Aid website.
-3.  Ensure the Power Automate flow is active and monitoring the email inbox for CSV attachments.
-4.  Verify that Power Automate has successfully saved the CSV attachments to the SharePoint folder.
-5.  Run the AWS Lambda function or Python script to transfer files from SharePoint to S3.
-6.  Process data in Databricks using the PySpark notebook.
-7.  Load the processed data into the Orbis database using SQL or the API.
-8.  Visualize the integrated data using Power BI or the Orbis platform.
-9.  Schedule the processes using Apache Airflow or AWS services (CloudWatch Events/EventBridge, Databricks Jobs).
-10. Run Great Expectations validation checks on the data.
-11. Run Pandas Profiling to analyze data quality.
+1.  Configure necessary credentials and environment variables.
+2.  Run the web automation script to extract data.
+3.  Ensure the automation tool is active and transferring data to the temporary storage.
+4.  Verify data transfer to the cloud storage.
+5.  Process data using the distributed computing environment.
+6.  Load the processed data into the database.
+7.  Visualize the integrated data using the chosen visualization tool.
+8.  Schedule the processes using the workflow orchestration tool.
+9.  Run data validation checks.
+10. Run data profiling to analyze data quality.
 
 ## Contributing
 
-Internal Moody's project, contributions managed internally.
+Contributions are welcome! Please feel free to submit pull requests or open issues to suggest improvements or report bugs.
 
 ## License
 
-Internal Moody's use.
+This project is licensed under the [MIT License](LICENSE).
 
 **Contact:**
 
